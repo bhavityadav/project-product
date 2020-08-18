@@ -1,0 +1,17 @@
+.product{
+    max-width: 15rem;
+
+}
+
+.product img{
+    max-height: 10rem;
+}
+
+.main{
+    margin:16px;
+    padding:16px
+}
+
+.msg{
+    margin-top:12px;
+}
