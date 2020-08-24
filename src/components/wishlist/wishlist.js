@@ -1,7 +1,7 @@
 import React  from 'react';
 import './wishlist.css';
 
-const wishlistHolder=(props)=>{
+const wishlistHolder = (props) => {
     return(
         <li className="list-group-item pc-condensed">
             <a className="btn btn-outline-danger" onClick={props.onClicked}>

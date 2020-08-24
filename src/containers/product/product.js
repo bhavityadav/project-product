@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
 import * as actionCreators from '../../store/actions/actions'
 import ProductHolder from '../../components/product/product';
+import { bindActionCreators } from 'redux';
 
 class Product extends Component{
 
-    state={
+    state = {
         product:[],
     }
 
@@ -14,32 +14,27 @@ class Product extends Component{
         this.props.onFetchProduct();
     }
 
-    onButtonClicked=(id)=>{
+    onButtonClicked = (id) => {
         console.log('bhavitclicked');
         this.props.onAddProductToWishList(id,'5f319b2cbf38a8415f9f6aac');
     }
 
-    onDeleteHandler=(id)=>{
+    onDeleteHandler = (id) => {
         this.props.onRemoveProduct(id);
     }
 
     
     render(){
-
-       
-
-        const products= this.props.product.map(prod=>{
+        const products = this.props.product.map(prod => {
             return <ProductHolder title={prod.title}
                     price={prod.price}
                     key={prod._id}
                     imgUrl={prod.imgUrl}
                     onClicked={()=>this.onButtonClicked(prod._id)}
                     onDeleteClicked={()=>this.onDeleteHandler(prod._id)}
-                    
                     />
         });
-
-
+        
         return(
             <div className="row">
                 {products}
@@ -48,18 +43,17 @@ class Product extends Component{
     }
 }
 
-const mapStateToProps = (state)=>{
+const mapStateToProps = (state) => {
     return{
         product:state.product
     };
 }
 
-const mapDispatchToProps = (dispatch)=>{
-    return {
-        onFetchProduct: ()=> dispatch(actionCreators.fetchProduct()),
-        onAddProductToWishList:(productId,wishListId)=> dispatch(actionCreators.addProductToWishList(productId,wishListId)),
-        onRemoveProduct:(id)=>dispatch(actionCreators.removeProduct(id))
-    };
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({onFetchProduct: () => actionCreators.fetchProduct(),
+                                onAddProductToWishList: (productId,wishListId) => actionCreators.addProductToWishList(productId,wishListId),
+                                onRemoveProduct: (id) => actionCreators.removeProduct(id)},dispatch);
+
 }
 
 

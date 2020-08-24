@@ -1,35 +1,24 @@
 import React , {Component} from 'react';
-
 import { connect } from 'react-redux';
-
 import * as actionCreators from '../../store/actions/actions'
 import './addproduct.css'
 
 class AddProduct extends Component{
-
-    state={
+    state = {
         title: '',
         price: '',
         imgUrl:'',
         likes:0,
     }
 
-    addPostClickHandler = ()=>{
-
-
+    addPostClickHandler = () => {
         const post={
             title:this.state.title,
             price:this.state.price,
             imgUrl:this.state.imgUrl
         }
-
         this.props.onAddProduct(post);
-
-        this.setState({title:''});
-        this.setState({price:''});
-        this.setState({imgUrl:''});
-
-        
+        this.setState({title:'',price:'',imgUrl:''});
     }
 
     render(){
@@ -48,7 +37,6 @@ class AddProduct extends Component{
                     <option value="Tata">Tata</option>
                 </select>
                 <button onClick={this.addPostClickHandler}>Add Product</button>
-    
             </div>
         );
     }
@@ -56,17 +44,10 @@ class AddProduct extends Component{
     
 }
 
-const mapStateToProps = (state)=>{
-    return{
-
-    };
-}
-
-
-const mapDispatchToProps = (dispatch)=>{
+const mapDispatchToProps = (dispatch) => {
     return {
-        onAddProduct: (post)=> dispatch(actionCreators.addProduct(post)),
+        onAddProduct: (post) => dispatch(actionCreators.addProduct(post)),
     };
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(AddProduct);
+export default connect(null,mapDispatchToProps)(AddProduct);

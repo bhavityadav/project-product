@@ -1,3 +1,5 @@
+import {FETCH_PRODUCT, ADD_WISHLIST, FETCH_WISHLIST, REMOVE_WISHLIST, REMOVE_PRODUCT, ADD_PRODUCT} from '../store/constants';
+
 const initialState={
     product:[
         {
@@ -7,51 +9,46 @@ const initialState={
             imgUrl:'#imgUrl'
         }
     ],
-    wishlist:[{
-        products:[],
-        title:'holder',
-        _id:'pscts'
-    }]
+    wishlist:[
+        {
+            products:[],
+            title:'holder',
+            _id:'pscts'
+        }
+    ]
 }
 
-const reducer = (state= initialState,action) => {
+const reducer = (state = initialState,action) => {
+
+    switch (action.type) {
+        case FETCH_PRODUCT:
+            return{
+                ...state,
+                product:action.prodArray
+            }
+        case ADD_WISHLIST:
+            return{
+                ...state,
+                wishlist:action.wishListObj
+            }
+        case REMOVE_WISHLIST:
+            return{
+                ...state,
+                wishlist:action.wishListObj
+            }
+        case FETCH_WISHLIST:
+            return{
+                ...state,
+                wishlist:action.wishlist
+            }
+        case REMOVE_PRODUCT:
+            return{
+                ...state,
+                product:action.prodArray
     
-    if(action.type === 'FETCH_PRODUCT'){
-        return{
-            ...state,
-            product:action.prodArray
-        }
+            }
     }
-
-    if(action.type === 'ADD_WISHLIST'){
-        return{
-            ...state,
-            wishlist:action.wishListObj
-        }
-    }
-
-    if(action.type === 'REMOVE_WISHLIST'){
-        return{
-            ...state,
-            wishlist:action.wishListObj
-        }
-    }
-
-    if(action.type === 'FETCH_WISHLIST'){
-        return{
-            ...state,
-            wishlist:action.wishlist
-        }
-    }
-
-    if(action.type==='REMOVE_PRODUCT'){
-        return{
-            ...state,
-            product:action.prodArray
-
-        }
-    }
-
+    
     return state;
 }
 

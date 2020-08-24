@@ -1,21 +1,12 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-
-import './wishlist.css';
-
 import * as actionCreators from '../../store/actions/actions';
-
-
 import WishListHolder from '../../components/wishlist/wishlist';
+import { bindActionCreators } from 'redux';
 
 class WishList extends Component{
 
-    state={
-        // wishlist:{
-        //     title:'title',
-        //     _id:'_id',
-        //     products:[]
-        // }
+    state = {
         wishlist:[{
             products:[],
             title:'holder',
@@ -33,11 +24,9 @@ class WishList extends Component{
     }
 
     render(){
-
         const createWishList = this.props.wishlist[0].products.map(wish=>{
             return <WishListHolder title={wish.title} price={wish.price} key={wish._id} onClicked={()=>this.onRemoveWishListHandler(wish._id)}/>
         });
-
 
         return(
             <div className="card">
@@ -45,7 +34,6 @@ class WishList extends Component{
                 <h4 className="card-title">WishList</h4>
                 <ul className="list-group">
                     {createWishList}
-                    {console.log('Bhavit',this.props.wishlist[0].products[0])}
                 </ul>
             </div>
         </div>
@@ -54,17 +42,15 @@ class WishList extends Component{
 
 }
 
-const mapStateToProps = (state)=>{
+const mapStateToProps = (state) => {
     return{
         wishlist:state.wishlist
     };
 }
 
-const mapDispatchToProps = (dispatch)=>{
-    return {
-        onFetchWishList: ()=> dispatch(actionCreators.fetchWishList()),
-        onRemoveWishList: (id,wishListId)=>dispatch(actionCreators.removeWishList(id,wishListId))
-    };
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({onFetchWishList: () => actionCreators.fetchWishList(),
+                                onRemoveWishList: (id,wishListId) => actionCreators.removeWishList(id,wishListId)},dispatch);
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(WishList);
